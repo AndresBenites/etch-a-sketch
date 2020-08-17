@@ -4,7 +4,6 @@ function createGrid(size) {
   container.style = `grid-template-columns: repeat(${size}, ${
     800 / size
   }px); grid-template-rows: repeat(${size}, ${800 / size}px);`;
-  // container.style = `grid-template-rows: repeat(${size}, ${800/size}px);`;
   for (i = 1; i <= gridSize; i++) {
     pixel = document.createElement("div");
     pixel.classList.add("pixel");
@@ -26,8 +25,14 @@ function clearPixels() {
 
 function createNewDrawing() {
   let answer = prompt("How many pixels per side would you like?");
-  if (answer != "" || parseInt(answer) != NaN) {
+  if (isNaN(parseInt(answer))) {
+      alert("Please enter a number between 8 and 128");
+    return;
+  } else if (parseInt(answer) <= 128 && parseInt(answer)>= 8){
     createGrid(answer);
+  } else {
+    alert("Please enter a number between 8 and 128");
+      return;
   }
 }
 
@@ -41,6 +46,6 @@ document.querySelector("#container").addEventListener("mouseover", (pixel) => {
 });
 
 document.querySelector(".button").addEventListener("click", () => {
-  clearPixels()
+  clearPixels();
   createNewDrawing();
 });
